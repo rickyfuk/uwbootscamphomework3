@@ -1,0 +1,96 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+background-color: black;
+color:white;
+font-family: 'Encode Sans Expanded', sans-serif;
+}
+
+hr{
+    border-width: 3px;
+}
+
+.contentBox{
+    background-color: white;
+    color: black;
+    font-family: 'Questrial', sans-serif;
+    min-height: 35vw;
+    border-width: 2px!important;
+    border-radius: 16px;
+}
+
+.passwordBox {
+    border-style: dashed!important;
+    border-width: 3px!important;
+    min-height: 150px!important;
+    font-size: 1rem;
+    font-family: 'Cousine', monospace;
+    min-height: 25vw;   
+    width:100%; 
+}
+
+#passwordResult{
+    word-wrap: break-word;
+    white-space: pre-line;
+    text-align: center;
+    /* text-justify: inter-word; */
+    width:100%;
+    display: inline!important;
+}
+
+.btn{
+    font-size: 2rem;
+    border-radius: 16px;
+    padding-top: 3vw!important;
+    padding-bottom: 3vw!important;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+}
+
+@media screen and (min-width: 200px) {
+    .contentBox{
+        max-width : 90%
+    }
+    h1{
+        font-size: 6vw;
+    }
+    h2{
+        font-size: 6vw;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .contentBox{
+        max-width : 100%
+    }
+    h1{
+        font-size: 6.8vw;
+    }
+    h2{
+        font-size: 5vw;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .contentBox{
+        max-width : 100%
+    }
+    h1{
+        font-size: 2.5em;
+    }
+    h2{
+        font-size: 2em;
+    }
+
+    #passwordResult{
+        word-wrap: break-word;
+        white-space: pre-line;
+        text-align: center;
+        /* text-justify: inter-word; */
+        width:100%;
+        display: flex;
+    }
+
+}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <!-- CSS reset -->
+    <link rel="stylesheet" type="text/CSS" href="assets/css/reset.css">
+    <!-- BootstrapCDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Encode+Sans+Expanded&family=Questrial&display=swap" rel="stylesheet">
+    <!-- Custom styles for the local CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- set up the container with Bootstrap Grid -->
+    <div class="container">
+        <!-- 1st row -->
+        <div class="row mx-0 mt-3">
+            <!-- the header will always occuiped the full header and in the middle of it -->
+            <div class="col-12 d-flex justify-content-center">
+                <h1>
+                    Password Generator
+                </h1>
+            </div>
+        </div>
+        <!-- 2nd row -->
+        <div class="row mt-3">
+            <!-- build the column for the password generator -->
+            <div class="col-12 mx-auto border contentBox">
+                <h2 class="mt-5 d-flex justify-content-center justify-content-md-start">
+                    Generate a Password
+                </h2>
+                <!-- add a seperate line between "Generate a password" and The password box -->
+                <hr>
+                <!-- 3rd row (nested in the 2nd row) -->
+                <div class="row mx-2">
+                    <div class="col-12 border passwordBox">
+                        <textarea id="passwordResult" class="pt-2">
+                            Your secure password
+                            <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz -->
+                        </textarea>
+                    </div>
+                </div>
+                <!-- add a seperate line between the password box and the button -->
+                <hr>
+                <!-- 3rd row (nested in the 2nd row) -->
+                <div class="row mx-2 my-4 buttons">
+                    <div class="d-flex justify-content-center pb-3 pb-md-0 col-12 col-md-6">
+                        <button class="btn btn-primary px-4 py-2" onclick="displayTheResult();">Generate Password</button>
+                    </div>
+                    <div class="d-flex justify-content-center col-12 col-md-6">
+                        <button class="btn btn-primary px-4 py-2">Copy to clipboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        // part 1 - Define the variable for the character
+        // number 
+        var num = [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9];
+
+        // Capital letter
+        var capLetter = [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"];
+
+        // Lower Case Letter
+        var letter = [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z"];
+
+        // Special Character
+        var specialChar = [
+            "!",
+            '"',
+            "#",
+            "$",
+            "%",
+            "&",
+            "'",
+            "(",
+            ")",
+            "*",
+            "+",
+            ",",
+            "-",
+            ".",
+            "/",
+            ":",
+            ";",
+            "<",
+            "=",
+            ">",
+            "?",
+            "@",
+            "[",
+            '\\',
+            "]",
+            "^",
+            "_",
+            "`",
+            "{",
+            "|",
+            "}",
+            "~"];
+        // end of Part 1
+
+        // name the function for html to identify
+        function displayTheResult(){
+
+        // Part 2 - Get the response from the user
+        // set an array for the keeping the full chat base
+        var fullChatArray = [];
+
+        // Part 2a - Get the password length
+        //Q1 prompt the question for the length requirment of the password 
+        var passwordLength = prompt("How many characters do you need? (must between 8 to 128 characters)");
+
+        // will keep asking until the result is between 8 to 128
+        while (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+            alert("Please enter a number between 8 to 128 only");
+            passwordLength = prompt("How many characters do you need? (must between 8 to 128 characters)");
+        }
+
+        // Part 2b -Get the password char type
+         
+        //Q1 confirm if the password need to contain any numnber
+        var needNum = confirm("Does your password need any number?");
+        // add the number in to the fullChatArray if the response is positive
+         if (needNum === true) {
+            fullChatArray = fullChatArray.concat(num);
+        }
+        // drop the number from the fullChatArray if the response is negative
+        else {
+            fullChatArray = fullChatArray;
+        }
+
+        //Q2 confirm if the password need to contain any Capital Letter
+        var needCapLetter = confirm("Does your password need any Capital Letter?");
+        // add the Cap Letter in to the fullChatArray if the response is positive
+        if (needCapLetter === true) {
+            fullChatArray = fullChatArray.concat(capLetter);
+        }
+        // drop the Cap Letter from the fullChatArray if the response is negative
+        else {
+            fullChatArray = fullChatArray;
+        }
+
+        //Q3 confirm if the password need to contain any Lower Case Letter
+        var needLetter = confirm("Does your password need any Lower Case Letter?");
+        // add the lower case letter in to the fullChatArray if the response is positive
+        if (needLetter === true) {
+            fullChatArray = fullChatArray.concat(letter);
+        }
+        // drop the Lower Case Letter from the fullChatArray if the response is negative
+        else {
+            fullChatArray = fullChatArray;
+        }
+
+        //Q4  confirm if the password need to contain any Special Character
+        var needSpecChar = confirm("Does your password need any Special Character?");
+        // add the special char in to the fullChatArray if the response is positive
+        if (needSpecChar === true) {
+            fullChatArray = fullChatArray.concat(specialChar);
+        }
+        // drop the special Char from the fullChatArray if the response is negative
+        else {
+            fullChatArray = fullChatArray;
+        }
+
+        // will keep asking the char type until at least one is choosen
+        while (
+            (needNum === false) &&
+            (needCapLetter === false) &&
+            (needLetter === false) &&
+            (needSpecChar === false)) {
+            alert("Please choose at least one of the character type. (Number/Capital Letter/Lower Case Letter/Special Character)");
+            //Q1 confirm if the password need to contain any numnber
+            var needNum = confirm("Does your password need any number?");
+            // add the number in to the fullChatArray if the response is positive
+            if (needNum === true) {
+                fullChatArray = fullChatArray.concat(num);
+            }
+            // drop the number from the fullChatArray if the response is negative
+            else {
+                fullChatArray = fullChatArray;
+            }
+
+            //Q2 confirm if the password need to contain any Capital Letter
+            var needCapLetter = confirm("Does your password need any Capital Letter?");
+            // add the Cap Letter in to the fullChatArray if the response is positive
+            if (needCapLetter === true) {
+                fullChatArray = fullChatArray.concat(capLetter);
+            }
+            // drop the Cap Letter from the fullChatArray if the response is negative
+            else {
+                fullChatArray = fullChatArray;
+            }
+
+            //Q3 confirm if the password need to contain any Lower Case Letter
+            var needLetter = confirm("Does your password need any Lower Case Letter?");
+            // add the lower case letter in to the fullChatArray if the response is positive
+            if (needLetter === true) {
+                fullChatArray = fullChatArray.concat(letter);
+            }
+            // drop the Lower Case Letter from the fullChatArray if the response is negative
+            else {
+                fullChatArray = fullChatArray;
+            }
+
+            //Q4 confirm if the password need to contain any Special Character
+            var needSpecChar = confirm("Does your password need any Special Character?");
+            // add the special char in to the fullChatArray if the response is positive
+            if (needLetter === true) {
+                fullChatArray = fullChatArray.concat(specialChar);
+            }
+            // drop the special Char from the fullChatArray if the response is negative
+            else {
+                fullChatArray = fullChatArray;
+            }
+        }
+        // end of while loop
+        // end of Part 2
+
+        // Part 3 - Generate a password from the password Array
+        // set the default password as empty (for the final output)
+        var password = "";
+
+        // set an array to store the temp result for final output
+        var passwordArray = [];
+
+        // A function to generate a random number
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        // A function to generate a single char
+        function gernerateAChar() {
+            var charSelectionCount = getRandomInt(fullChatArray.length);
+            console.log(fullChatArray[charSelectionCount]);
+            return fullChatArray[charSelectionCount];
+        }
+
+        // the following "for loop" is serve for: 
+        // 1. keep the result for every char generate by function "generateAChar"
+        // 2. add the new char to the password until the requirment met 
+        for (var i = 0; i < passwordLength; i++) {
+            passwordArray[i] = gernerateAChar();
+            password = password + passwordArray[i];
+            console.log(password);
+            
+        }
+
+        // Part 4 - Return the password to html
+        console.log(typeof password);
+        document.getElementById("passwordResult").innerHTML = password;
+
+        }
+    
+        // end function "displayTheResult"
+
+    </script>
+</body>
+
+</html>
